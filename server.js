@@ -41,6 +41,11 @@ io.on('connection', (client) => {
             client.emit('unknownCode');
             return;
         }
+        // 게임 인원이 이미 2명이라면?
+        if (io.sockets.adapter.rooms.get(roomName).size === 2) {
+            client.emit('tooManyPlayers');
+            return;
+        }
 
         // 게임시작
         clientRooms[client.id] = roomName;
@@ -56,7 +61,6 @@ io.on('connection', (client) => {
         io.sockets.in(roomName).emit('gameState', JSON.stringify(initState));
 
         startGameInterval(roomName);
-        // console.log(clientRooms);
     });
 
     // Keydown
