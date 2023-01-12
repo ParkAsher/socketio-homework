@@ -23,7 +23,7 @@ function createGameState() {
                 },
             },
             {
-                post: {
+                pos: {
                     x: 10,
                     y: 10,
                 },

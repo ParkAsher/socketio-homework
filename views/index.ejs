@@ -40,11 +40,11 @@
         const socket = io();
 
         // Socket.io 의 이벤트 핸들러 선언
-        socket.on('init', handleInit);
-        socket.on('gameState', handleGameState);
+        socket.on('init', handleInit); // 사용
+        socket.on('gameState', handleGameState); // 사용
         socket.on('gameOver', handleGameOver);
-        socket.on('gameCode', handleGameCode);
-        socket.on('unknownCode', handleUnknownCode);
+        socket.on('gameCode', handleGameCode); // 사용
+        socket.on('unknownCode', handleUnknownCode); // 사용
         socket.on('tooManyPlayers', handleToomanyPlayers);
 
         // Element ID로 가져오기
@@ -89,37 +89,37 @@
 
             canvas.width = canvas.height = 600;
             ctx.fillStype = 'black';
-            ctx.fillRect(0, 0, canvas.width, canvas, height);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             document.addEventListener('keydown', keydown);
             gameActive = true;
         }
 
-        function ketdown(e) {
+        function keydown(e) {
             socket.emit('keydown', e.keyCode);
         }
 
         // 게임 랜더링 순서
         function paintGame(state) {
-            ctx.fillStype = 'black';
-            ctx.fillRect = (0, 0, canvas.width, canvas.height); // 뒷 배경
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height); // 뒷 배경
 
             const box = state.box;
             const gridsize = state.gridsize;
             const size = canvas.width / gridsize;
 
-            ctx.fillStype = 'yellow';
-            ctx.fillRect = (box.x * size, box.y * size, size, size);
+            ctx.fillStyle = 'yellow';
+            ctx.fillRect(box.x * size, box.y * size, size, size);
 
             paintPlayer(state.players[0], size, 'blue'); // 첫번째 플레이어
             paintPlayer(state.players[1], size, 'red'); // 두번째 플레이어
 
             gameScoreBlueDisplay.innerText = state.scoreblue; // 스코어 화면에 갱신해서 나타내주기
-            gameScoreRedDisplay.innerText = state.socrered;
+            gameScoreRedDisplay.innerText = state.scorered;
         }
 
         function paintPlayer(playerState, size, color) {
-            ctx.fillRect = color;
+            ctx.fillStyle = color;
             ctx.fillRect(playerState.pos.x * size, playerState.pos.y * size, size, size);
         }
 
